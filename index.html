@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Ambiental · E.M.E.F.T.I Miguel Fernandes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="wrap">
+  <header>
+    <div class="school-tag">
+      <span class="dot"></span>
+      E.M.E.F.T.I Miguel Fernandes · Feira de Ciências 2026
+    </div>
+    <h1>Quiz de<br><span>Consciência Ambiental</span></h1>
+    <p class="subtitle">Tema: Ciência, Inovação e Transformação Social</p>
+    <p class="professor-tag">Prof. responsável: Ricardo Malheiros</p>
+  </header>
+
+  <div id="start-screen" class="card">
+    <div class="start-icon">🌱</div>
+    <div class="start-title">Descubra seu nível de<br>consciência ambiental</div>
+    <p class="start-desc">
+      Responda 10 perguntas sobre seus hábitos de consumo e saiba como
+      você impacta o planeta. Rápido, grátis e revelador!
+    </p>
+    <div class="info-chips">
+      <span class="chip">📋 10 questões</span>
+      <span class="chip">⏱️ ~3 minutos</span>
+      <span class="chip">🏆 Resultado imediato</span>
+    </div>
+    <button class="btn-start" onclick="startQuiz()">Começar o Quiz →</button>
+  </div>
+
+  <div id="quiz-screen" style="display:none;">
+
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span id="q-counter">Questão 1 de 10</span>
+        <span id="q-percent">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="card slide-in" id="q-card">
+      <div class="q-label" id="q-label">Questão 01</div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+      <div class="nav-row">
+        <button class="btn-back" id="btn-back" onclick="goBack()" disabled>← Voltar</button>
+        <button class="btn-next" id="btn-next" onclick="goNext()" disabled>Próxima →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="result-screen" style="display:none;">
+
+    <div class="result-header">
+      <span class="result-emoji" id="r-emoji"></span>
+      <div class="result-level" id="r-level"></div>
+      <div class="result-score-text" id="r-score-text"></div>
+
+      <div class="gauge-wrap">
+        <svg class="gauge-svg" viewBox="0 0 340 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 170 A140 140 0 0 1 310 170"
+                stroke="#1e3d2f" stroke-width="18" stroke-linecap="round"/>
+          <path d="M30 170 A140 140 0 0 1 310 170"
+                stroke="url(#gGrad)" stroke-width="18" stroke-linecap="round"
+                stroke-dasharray="439.82" stroke-dashoffset="439.82"
+                id="gauge-arc"
+                style="transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)"/>
+          <defs>
+            <linearGradient id="gGrad" x1="30" y1="170" x2="310" y2="170" gradientUnits="userSpaceOnUse">
+              <stop offset="0%"   stop-color="#ff5c5c"/>
+              <stop offset="50%"  stop-color="#f0e44a"/>
+              <stop offset="100%" stop-color="#39ff8e"/>
+            </linearGradient>
+          </defs>
+          <g id="gauge-needle"
+             style="transform-origin:170px 170px; transform:rotate(-90deg);
+                    transition:transform 1.2s cubic-bezier(.4,0,.2,1)">
+            <line x1="170" y1="170" x2="170" y2="50"
+                  stroke="#e8f5ee" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="170" cy="170" r="8" fill="#0d1f1b" stroke="#39ff8e" stroke-width="2"/>
+          </g>
+          <text x="16"  y="192" font-size="11" fill="#6b9e82" font-family="Space Grotesk">Baixa</text>
+          <text x="270" y="192" font-size="11" fill="#6b9e82" font-family="Space Grotesk">Alta</text>
+          <text x="170" y="150" text-anchor="middle" font-size="38" font-weight="800"
+                fill="#e8f5ee" font-family="Syne" id="gauge-score">0</text>
+          <text x="170" y="168" text-anchor="middle" font-size="11"
+                fill="#6b9e82" font-family="Space Grotesk">pontos</text>
+        </svg>
+        <div class="gauge-label" id="gauge-label">calculando…</div>
+      </div>
+    </div>
+
+    <div class="result-card">
+      <h3 id="r-title">Seu perfil</h3>
+      <p id="r-desc"></p>
+    </div>
+
+    <div class="result-card">
+      <h3>💡 Dicas para você</h3>
+      <ul class="tips-list" id="r-tips"></ul>
+    </div>
+
+    <div class="result-card">
+      <h3>📊 Detalhamento da pontuação</h3>
+      <div class="score-bars" id="score-bars"></div>
+    </div>
+
+    <button class="btn-retry" onclick="resetQuiz()">↺ Refazer o teste</button>
+
+  </div>
+
+  <footer>
+    Feira de Ciências 2026 · E.M.E.F.T.I Miguel Fernandes<br>
+    Prof. Ricardo Malheiros · Tema: Ciência, Inovação e Transformação Social
+  </footer>
+
+</div>
+
+<script src="quiz.js"></script>
+</body>
+</html>
