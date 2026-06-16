@@ -1,6 +1,6 @@
 # 🌱 Quiz de Consciência Ambiental
 
-> Projeto desenvolvido para a **Feira de Ciências 2025** da E.M.E.F.T.I Miguel Fernandes  
+> Projeto desenvolvido para a **Feira de Ciências 2026** da E.M.E.F.T.I Miguel Fernandes  
 > Tema: **Ciência, Inovação e Transformação Social**  
 > Prof. responsável: **Ricardo Malheiros**
 
